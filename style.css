@@ -1,11 +1,47 @@
 *{
     padding:0;
     margin: 0;
+    box-sizing: border-box;
+}
+
+.app-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.size-container{
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: max-content;
+}
+
+.size-container input{
+    width: 50px;
+    padding: 5px;
+    margin: 5px;
+
+}
+
+.size-container button{
+margin:5px;
+}
+
+.size-container button{
+    padding: 5px;
 }
 
 .grid-container{
-    height: 500px;
-    width: 500px;
-    grid-template-rows: repeat(16, 1f);
-    grid-template-columns: repeat(16, 1f);
+    height: 600px;
+    width: 600px;
+    
+}
+
+.main-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
