@@ -3,21 +3,14 @@ let mouseDown = false;
 let width = 16;
 let height = 16;
 
-let gridSquare = document.createElement("div");
 let mainContainer = document.querySelector(".main-container");
 
-let gridContainer = document.createElement("div");
-gridContainer.classList.add("grid-container");
+let resizeButton = document.querySelector(".size-container button");
+let heightInput = document.querySelector(".height");
+let widthInput = document.querySelector(".width");
 
-gridContainer.style.backgroundColor = "gray";
-gridContainer.style.display = "grid";
-gridContainer.style.gridTemplateColumns = `repeat(${width}, auto)`;
-gridContainer.style.gridTemplateRows = `repeat(${height}, auto)`;
+resizeButton.addEventListener("click", changeGridSize);
 
-gridSquare.style.backgroundColor = "black";
-gridSquare.style.width = "15px";
-
-mainContainer.appendChild(gridContainer);
 
 let totalPixle = width * height;
 
@@ -30,35 +23,55 @@ function colorSquare(e, target) {
         toggleMouse(true);
     }
 
-    // if(e.type === "mouseup"){
-    //     toggleMouse(false);
-    // }
-
     if(mouseDown)
     {
         e.stopPropagation();
         console.log(e.target);
-        e.target.style.backgroundColor = "white"
+        e.target.style.backgroundColor = "black"
     }
 
 }
 
-function createGrid(){
+function changeGridSize(e){
+    
+    
+    if(typeof +heightInput.value == "number" && +heightInput.value > 0 && typeof +widthInput.value == "number" && +widthInput.value > 0)
+    {
+        if(+heightInput.value >= 100 || +widthInput.value >= 100){
+            alert("Please choose a pixle number between 1-99");
+            widthInput.value = "";
+            heightInput.value = "" ;
+            return;
+        }
 
+        width = +widthInput.value;
+        height = +heightInput.value;
+        let deleteGridElement = document.querySelector(".grid-container");
+        deleteGridElement.remove();
+        createGridAndPixles();
+    } 
 }
 
-function changePixelSize(){
-
-}
 
 function createGridAndPixles(){
+    let gridContainer = document.createElement("div");
+
+    totalPixle = width * height;
     for (let i = 0; i < totalPixle; i++) {
         let gridSquare = document.createElement("div");
+        gridContainer.classList.add("grid-container");
+        gridContainer.style.backgroundColor = "white";
+        gridContainer.style.display = "grid";
+        gridContainer.style.gridTemplateColumns = `repeat(${width}, auto)`;
+        gridContainer.style.gridTemplateRows = `repeat(${height}, auto)`;
+        
+        mainContainer.appendChild(gridContainer);
+
         gridSquare.addEventListener("mousedown", colorSquare);
         gridSquare.addEventListener("mouseover", colorSquare);
         gridSquare.addEventListener("mouseup", colorSquare);
 
-        gridSquare.style.backgroundColor = "black";
+        gridSquare.style.backgroundColor = "lightgray";
         gridSquare.style.width = "100%";
         gridContainer.appendChild(gridSquare);
     }
